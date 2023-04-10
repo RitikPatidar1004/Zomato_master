@@ -1,8 +1,8 @@
 // Library
-import express from "express";
+const express = require("express");
 
 // Database modal
-import {ReviewModel} from "../../database/allModels";
+const { ReviewModel } = require("../../database/allModels");
 
 const Router = express.Router();
 
@@ -13,18 +13,18 @@ const Router = express.Router();
  * Access       Public
  * Method       GET
  */
- Router.get("/:resid" , async(req,res) => {
-     try {
-         const {resid} = req.params;
-         const reviews = await ReviewModel.find({ restarants : resid});
+Router.get("/:resid", async (req, res) => {
+  try {
+    const { resid } = req.params;
+    const reviews = await ReviewModel.find({ restarants: resid });
 
-         return res.json({reviews});
-     } catch (errro) {
-        return res.status(400).json({ error : "user not found "})
-     }
- });
+    return res.json({ reviews });
+  } catch (errro) {
+    return res.status(400).json({ error: "user not found " });
+  }
+});
 
- /**
+/**
  * Route        /new
  * Des          Post : Adding new food/restaurant review and rating
  * Params       none
@@ -32,19 +32,19 @@ const Router = express.Router();
  * Method       POST
  */
 
- Router.post("/new" , async(req,res) => {
-     try {
-         const {reviewData} = req.body;
+Router.post("/new", async (req, res) => {
+  try {
+    const { reviewData } = req.body;
 
-         await ReviewModel.create({...reviewData});
+    await ReviewModel.create({ ...reviewData });
 
-         return res.json({reviews : "Succesfully created a review"})
-     } catch (error) {
-        return res.status(400).json({ error : "user not found "})
-     }
- });
+    return res.json({ reviews: "Succesfully created a review" });
+  } catch (error) {
+    return res.status(400).json({ error: "user not found " });
+  }
+});
 
- /**
+/**
  * Route        /delete
  * Des          delete a specific review
  * Params       _id
@@ -52,11 +52,10 @@ const Router = express.Router();
  * Method       DELETE
  */
 
- Router.delete("/delete/:id" , async (req, res) =>{
-     try {
-         
-     } catch (error) {
-        return res.status(400).json({ error : "user not found "})
-     }
- })
-export default Router;
+Router.delete("/delete/:id", async (req, res) => {
+  try {
+  } catch (error) {
+    return res.status(400).json({ error: "user not found " });
+  }
+});
+module.exports = Router;

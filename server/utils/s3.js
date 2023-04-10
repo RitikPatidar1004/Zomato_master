@@ -1,4 +1,4 @@
-import AWS from "aws-sdk";
+const AWS = require("aws-sdk");
 require("dotenv").config();
 
 // aws s3 bucket
@@ -8,7 +8,7 @@ const s3Bucket = new AWS.S3({
   region: "ap-south-1",
 });
 
-export const s3Upload = (options) => {
+module.exports = () => {
   return new Promise((resolve, reject) =>
     s3Bucket.upload(options, (error, data) => {
       if (error) return reject(error);

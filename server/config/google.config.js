@@ -1,9 +1,9 @@
-import googleOAuth from "passport-google-oauth20";
-import { UserModel } from "../database/allModels";
+const googleOAuth = require("passport-google-oauth20");
+const { UserModel } = require("../database/allModels");
 
 const GoogleStrategy = googleOAuth.Strategy;
 
-export default (passport) => {
+module.exports = (passport) => {
   passport.use(
     new GoogleStrategy(
       {
@@ -49,12 +49,12 @@ export default (passport) => {
   passport.serializeUser((userData, done) => done(null, { ...userData }));
   passport.deserializeUser((id, done) => done(null, id));
 };
-// import googleOAuth from "passport-google-oauth20";
-// import UserModel from "../database/allmodels";
+// const googleOAuth =require( "passport-google-oauth20");
+// const UserModel =require( "../database/allmodels");
 
 // const GoogleStrategy = googleOAuth.Strategy;
 
-// export default (passport) => {
+// module.exports= (passport) => {
 //     passport.use(
 //         new GoogleStrategy(
 //             {

@@ -1,6 +1,6 @@
-import joi from "joi";
+const joi = require("joi");
 
-export const ValidateRestaurantCity = (restaurantObject) => {
+module.exports = () => {
   const Schema = joi.object({
     city: joi().string().required(),
   });
@@ -8,7 +8,7 @@ export const ValidateRestaurantCity = (restaurantObject) => {
   return Schema.validateAsync(restaurantObject);
 };
 
-export const ValidateRestaurantSearchString = (restaurantObject) => {
+module.exports = () => {
   const Schema = joi.object({
     searchString: joi.string().required(),
   });

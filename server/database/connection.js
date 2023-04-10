@@ -1,8 +1,8 @@
-import Mongoose from "mongoose";
+const Mongoose = require("mongoose");
 
-export default async () => {
-    return Mongoose.connect(process.env.MONGO_URL,{
-        useNewUrlParser : true,
-        useUnifiedTopology : true,
-    });
+module.exports = async () => {
+  return Mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 };

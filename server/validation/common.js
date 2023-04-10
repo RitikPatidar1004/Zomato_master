@@ -1,6 +1,6 @@
-import joi from "joi";
+const joi = require("joi");
 
-export const validateId = (id) => {
+module.exports = () => {
   const Schema = joi.object({
     _id: joi.string().required(),
   });
@@ -8,7 +8,7 @@ export const validateId = (id) => {
   return Schema.validateAsync(id);
 };
 
-export const validateCategory = (category) => {
+module.exports = () => {
   const Schema = joi.object({
     category: joi.string().required(),
   });

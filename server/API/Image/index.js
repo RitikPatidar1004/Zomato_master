@@ -1,9 +1,9 @@
 // Library
-import express from "express";
-import multer from "multer";
+const express = require("express");
+const multer = require("multer");
 
 // Database modal
-import { ImageModel } from "../../database/allModels";
+const { ImageModel } = require("../../database/allModels");
 
 const Router = express.Router();
 
@@ -12,7 +12,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // utility function
-import { s3Upload } from "../../utils/s3";
+const { s3Upload } = require("../../utils/s3");
 
 /**
  * Route        /
@@ -57,4 +57,4 @@ Router.get("/:_id", async (req, res) => {
   }
 });
 
-export default Router;
+module.exports = Router;

@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -65,4 +65,4 @@ UserSchema.pre("save", function (next) {
   });
 });
 
-export const UserModel = mongoose.model("Users", UserSchema);
+module.exports = mongoose.model("Users", UserSchema);

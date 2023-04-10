@@ -1,34 +1,32 @@
+// require("@babel/core").transform("code", { presets: ["@babel/preset-env"],
 
-require("@babel/core").transform("code", { presets: ["@babel/preset-env"],
+// });
 
-});
+require("dotenv").config();
 
-require('dotenv').config();
-
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
 
 //Database Connection
-import ConnectDB from "./database/connection";
-
+const ConnectDB = require("./database/connection");
 
 //google authentication configuration
-import googleAuthConfig from "./config/google.config";
+const googleAuthConfig = require("./config/google.config");
 
 //priavte routes authentucation config
-import privateRouteConfig from "./config/route.config";
+const privateRouteConfig = require("./config/route.config");
 
 //API
-import Auth from './API/Auth';
-import Restaurant from './API/Restaurant';
-import Food from './API/Food';
-import Menu from './API/Menu';
-import Image from './API/Image';
-import Order from "./API/Orders"
-import Review from "./API/Reviews"
-import User from "./API/User"
-import passport from "passport";
+const Auth = require("./API/Auth");
+const Restaurant = require("./API/Restaurant");
+const Food = require("./API/Food");
+const Menu = require("./API/Menu");
+const Image = require("./API/Image");
+const Order = require("./API/Orders");
+const Review = require("./API/Reviews");
+// const User = require("./API/User");
+const passport = require("passport");
 
 //passport config
 googleAuthConfig(passport);
@@ -41,26 +39,25 @@ zomato.use(helmet());
 zomato.use(passport.initialize());
 // zomato.use(passport.session());
 
-
-
 // Application Routes
-zomato.use("/auth",Auth);
-zomato.use("/restaurant",Restaurant);
-zomato.use("/food" , Food);
-zomato.use("/menu" , Menu);
-zomato.use("/image",Image);
-zomato.use("/order",Order);
-zomato.use("/review",Review);
-zomato.use("/user",User);
-
+zomato.use("/auth", Auth);
+zomato.use("/restaurant", Restaurant);
+zomato.use("/food", Food);
+zomato.use("/menu", Menu);
+zomato.use("/image", Image);
+zomato.use("/order", Order);
+zomato.use("/review", Review);
+// zomato.use("/user", User);
 
 // http://localhost:3000/
 
-zomato.listen(3000, () =>{
-    ConnectDB().then(() => {
-        console.log("Server is running !!!");
-    }).catch((error) => {
-        console.log("Server is running , but database connection failed.......");
-        console.log(error);
+zomato.listen(3000, () => {
+  ConnectDB()
+    .then(() => {
+      console.log("Server is running !!!");
     })
+    .catch((error) => {
+      console.log("Server is running , but database connection failed.......");
+      console.log(error);
+    });
 });

@@ -1,8 +1,8 @@
 // libraries
-import express from "express";
+const express = require("express");
 
 //database model
-import{ MenuModel , ImageModel } from "../../database/allmodels";
+const { MenuModel, ImageModel } = require("../../database/allmodels");
 
 const Router = express.Router();
 
@@ -14,17 +14,19 @@ Access      Public
 Method      GET 
 */
 
-Router.get('/list/:_id', async (req,res) => {
-    try {
-        const {_id} = req.params;
-        const menu = await MenuModel.findById(_id);
-        if(!menu){
-            return res.status(400).json({error : "No menu present for this restaurant"});
-        }
-        return res.json({menus});
-    } catch (error) {
-        return res.status(500).json({error : error.message});
+Router.get("/list/:_id", async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const menu = await MenuModel.findById(_id);
+    if (!menu) {
+      return res
+        .status(400)
+        .json({ error: "No menu present for this restaurant" });
     }
+    return res.json({ menus });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 });
 
 /** 
@@ -35,18 +37,17 @@ Access      Public
 Method      GET 
 */
 
-Router.get('/image/:_id' , async (req,res) => {
-   try {
-       const {_id} = req.params;
-       const menuImages = await ImageModel.findOne(_id);
-       if(!menuImages){
-        return res.status(400).json({error : "No iamge found !"});
+Router.get("/image/:_id", async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const menuImages = await ImageModel.findOne(_id);
+    if (!menuImages) {
+      return res.status(400).json({ error: "No iamge found !" });
     }
-       return res.json({menuImages})
-   } catch (
-   error) {
-    return res.status(500).json({error : error.message});
-   }
-})
+    return res.json({ menuImages });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
 
-export default Router;
+module.exports = Router;

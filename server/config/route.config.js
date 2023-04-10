@@ -1,7 +1,7 @@
-import JwtPassport from "passport-jwt";
+const JwtPassport = require("passport-jwt");
 
 // Database Model
-import { UserModel } from "../database/allModels";
+const { UserModel } = require("../database/allModels");
 
 const JWTStrategy = JwtPassport.Strategy;
 const ExtractJwt = JwtPassport.ExtractJwt;
@@ -11,7 +11,7 @@ const options = {
   secretOrKey: "ZomatoAPP",
 };
 
-export default (passport) => {
+module.exports = (passport) => {
   passport.use(
     new JWTStrategy(options, async (jwt__payload, done) => {
       try {

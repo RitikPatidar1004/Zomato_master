@@ -1,8 +1,8 @@
 // Library
-import express from "express";
-import passport from "passport";
+const express = require("express");
+const passport = require("passport");
 // Database modal
-import {OrderModel} from "../../database/allModels";
+const { OrderModel } = require("../../database/allModels");
 
 const Router = express.Router();
 
@@ -13,21 +13,21 @@ const Router = express.Router();
  * Access       Private
  * Method       GET
  */
- Router.get ('/:_id' , passport.authenticate("jwt") , async (req,res) => {
-     try {
-         const {_id} = req.params;
-         const getOrders = await OrderModel.findOne({user : _id});
+Router.get("/:_id", passport.authenticate("jwt"), async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const getOrders = await OrderModel.findOne({ user: _id });
 
-         if(!getOrders){
-             return res.status(400).json({ error : "user not found "})
-         }
-         return res.status(200).json({orders : getOrders});
-     } catch (error) {
-        return res.status(500).json({ error: error.message });
-     }
- });
+    if (!getOrders) {
+      return res.status(400).json({ error: "user not found " });
+    }
+    return res.status(200).json({ orders: getOrders });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
 
- /**
+/**
  * Route        /new
  * Des          Uploads all orders based on id
  * Params       _id
@@ -35,22 +35,26 @@ const Router = express.Router();
  * Method       POST
  */
 
- Router.post("/new/:_id" , passport.authenticate("jwt") , async (req,res) => {
-     try {
-        const {_id} = req.params;
-        const {orderDetails} = req.body;
-        
-        const addNewOrder = await OrderModel.findOneAndUpdate({
-            user : _id
-        }  , {
-            $push: { orderDetails },
-        },{
-            new:true
-        });
+Router.post("/new/:_id", passport.authenticate("jwt"), async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const { orderDetails } = req.body;
 
-        return res.json({order : addNewOrder})
-     } catch (error) {
-        return res.status(500).json({ error: error.message });   
-     }
- });
-export default Router;
+    const addNewOrder = await OrderModel.findOneAndUpdate(
+      {
+        user: _id,
+      },
+      {
+        $push: { orderDetails },
+      },
+      {
+        new: true,
+      }
+    );
+
+    return res.json({ order: addNewOrder });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+module.exports = Router;
